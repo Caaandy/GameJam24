@@ -28,11 +28,10 @@ public class FallingState : IMovementState
         if (Physics2D.Raycast(_player.transform.position, Vector2.down, 1.01f, _layerMask))
         {
             _player.grounded = true;
-            _player.jumpsRemaining = 1;
+            _player.jumpsRemaining = _player.maxJumpsReset;
             _player.ChangeState(Playermovement.States.IdleState);
         }
-        _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
-        _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
+        _rb.linearVelocityX = _moveInputAction.ReadValue<float>() * _player.speed;
     }
 
     public void OnExit()
@@ -43,6 +42,7 @@ public class FallingState : IMovementState
     public void Jump(InputAction.CallbackContext context)
     {
         if (_player.jumpsRemaining <= 0) return;
+        _rb.linearVelocityY = 0;
         _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         _player.jumpsRemaining -= 1; 
         _player.grounded = false;

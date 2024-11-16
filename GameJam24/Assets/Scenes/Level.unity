@@ -420,9 +420,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 5
-  jumpsRemaining: 1
+  maxJumpsReset: 2
+  jumpsRemaining: 2
+  speed: 10
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  _grounded: 0
+  grounded: 0
 --- !u!1 &1832618719
 GameObject:
   m_ObjectHideFlags: 0
