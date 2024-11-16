@@ -31,8 +31,7 @@ public class FallingState : IMovementState
             _player.jumpsRemaining = _player.maxJumpsReset;
             _player.ChangeState(Playermovement.States.IdleState);
         }
-        _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
-        _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
+        _rb.linearVelocityX = _moveInputAction.ReadValue<float>() * _player.speed;
     }
 
     public void OnExit()

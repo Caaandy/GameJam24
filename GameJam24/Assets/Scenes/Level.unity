@@ -423,6 +423,7 @@ MonoBehaviour:
   jumpForce: 5
   maxJumpsReset: 2
   jumpsRemaining: 2
+  speed: 10
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   grounded: 0
 --- !u!1 &1832618719

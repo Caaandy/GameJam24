@@ -26,11 +26,11 @@ public class WalkingState : IMovementState
     {
         if (!_moveInputAction.IsPressed())
         {
+            _rb.linearVelocityX = 0;
             _player.ChangeState(Playermovement.States.IdleState);
             return;
         }
-        _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
-        _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
+        _rb.linearVelocityX = _moveInputAction.ReadValue<float>() * _player.speed;
     }
 
     public void OnExit()
