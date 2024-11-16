@@ -11,12 +11,21 @@ public class CameraMovement : MonoBehaviour
     public float camHeightOffset = 0.0f;
     private Vector3 playerFurtherstPosition;
     private Vector3 camVelocity = Vector2.zero;
+
+    //is this the first time we call start?
+    private bool detlef = true;
     #endregion
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if(!detlef)
+        {
+            Vector3 cameraDistance = playerFurtherstPosition - transform.position;
+            transform.position = player.transform.position - cameraDistance;
+            playerFurtherstPosition = player.transform.position;
+        }
         if (wall != null)
         {
             var wallSize = new Vector3(wallWidth, Screen.height, 0); 
@@ -25,11 +34,12 @@ public class CameraMovement : MonoBehaviour
             wallInstance.transform.position = CalculateWallPosition();
             wallInstance.transform.localScale = new Vector3(wallWidth, Screen.height, 1.0f);
         }
-        if (player != null)
+        if (player != null && detlef)
         {
             playerFurtherstPosition = player.transform.position;
             transform.position = CalculateTargetPosition(camHeightOffset);
         }
+        
     }
 
     // Update is called once per frame
@@ -69,7 +79,8 @@ public class CameraMovement : MonoBehaviour
 
     public void Reset()
     {
+        detlef = false;
         GameObject.Destroy(wallInstance);
-        Start();
+        Start(); 
     }
 }

@@ -9,7 +9,8 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     { 
-        _player.position = new Vector3(_teleportTo.transform.position.x, _player.position.y, _player.position.z);
+        float distancePlayerCollider = transform.position.x - other.transform.position.x;
+        _player.position = new Vector3(_teleportTo.transform.position.x - distancePlayerCollider, _player.position.y, _player.position.z);
         _cameraScript.Reset();
     }
 }
