@@ -6,38 +6,41 @@ public class CameraMovement : MonoBehaviour
     public GameObject player;
     public GameObject wall;
     public float smoothing = 1.0f;
-    private Vector2 playerFurtherstPosition;
-    private Vector2 camVelocity = Vector2.zero;
-    #endregion
-
-    #region Constants
-    private float wallWidth = 1.0f;
+    private GameObject wallInstance;
+    public float wallWidth = 1.0f;
+    public float camHeightOffset = 0.0f;
+    private Vector3 playerFurtherstPosition;
+    private Vector3 camVelocity = Vector2.zero;
     #endregion
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        var wallScreenPosition = new Vector3(wallWidth / 2.0f, Screen.height / 2.0f, player.transform.position.z);
-        var wallWorldBounds = new Bounds(Camera.main.ScreenToWorldPoint(wallScreenPosition), new Vector3(wallWidth, Screen.height, 0));
         if (wall != null)
         {
-            wall.GetComponent<SpriteRenderer>().bounds = wallWorldBounds;
+            var wallSize = new Vector3(wallWidth, Screen.height, 0);
+            wall.GetComponent<BoxCollider2D>().size = wallSize;
+            wallInstance = Instantiate(wall);
+            wallInstance.transform.position = CalculateWallPosition();
+            wallInstance.transform.localScale = new Vector3(wallWidth, Screen.height, 1.0f);
         }
         if (player != null)
         {
             playerFurtherstPosition = player.transform.position;
-            transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+            transform.position = CalculateTargetPosition(camHeightOffset);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.SmoothDamp(transform.position, player.transform.position, ref camVelocity, smoothing); // Smoothly move the camera to the player's position
+        transform.position = Vector3.SmoothDamp(transform.position, CalculateTargetPosition(camHeightOffset), ref camVelocity, smoothing); // Smoothly move the camera to the player's position
+        wallInstance.transform.position = CalculateWallPosition();
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         if (player != null)
         {
             // Make x only increase
@@ -47,8 +50,20 @@ public class CameraMovement : MonoBehaviour
             }
             else
             {
-                playerFurtherstPosition = new Vector2(playerFurtherstPosition.x, player.transform.position.y);
+                playerFurtherstPosition = new Vector3(playerFurtherstPosition.x, player.transform.position.y, player.transform.position.z);
             }
         }
+    }
+
+    private Vector3 CalculateTargetPosition(float offset = 0.0f)
+    {
+        return new Vector3(playerFurtherstPosition.x, playerFurtherstPosition.y + offset, -10.0f);
+    }
+
+    private Vector3 CalculateWallPosition()
+    {
+        var wallScreenPosition = new Vector3(- wallWidth / 2.0f, Screen.height / 2.0f, player.transform.position.z);
+        var rawPosition = Camera.main.ScreenToWorldPoint(wallScreenPosition);
+        return new Vector3(rawPosition.x, rawPosition.y, player.transform.position.z);
     }
 }
