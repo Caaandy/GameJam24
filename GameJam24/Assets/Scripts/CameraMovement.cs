@@ -19,9 +19,9 @@ public class CameraMovement : MonoBehaviour
     {
         if (wall != null)
         {
-            var wallSize = new Vector3(wallWidth, Screen.height, 0);
-            wall.GetComponent<BoxCollider2D>().size = wallSize;
+            var wallSize = new Vector3(wallWidth, Screen.height, 0); 
             wallInstance = Instantiate(wall);
+            wallInstance.GetComponent<BoxCollider2D>().size = wallSize;
             wallInstance.transform.position = CalculateWallPosition();
             wallInstance.transform.localScale = new Vector3(wallWidth, Screen.height, 1.0f);
         }
@@ -65,5 +65,11 @@ public class CameraMovement : MonoBehaviour
         var wallScreenPosition = new Vector3(- wallWidth / 2.0f, Screen.height / 2.0f, player.transform.position.z);
         var rawPosition = Camera.main.ScreenToWorldPoint(wallScreenPosition);
         return new Vector3(rawPosition.x, rawPosition.y, player.transform.position.z);
+    }
+
+    public void Reset()
+    {
+        GameObject.Destroy(wallInstance);
+        Start();
     }
 }

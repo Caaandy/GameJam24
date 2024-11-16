@@ -69,7 +69,7 @@ public class Playermovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
         CurrentState.OnFixedUpdate();
     }
 
