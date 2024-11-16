@@ -8,6 +8,7 @@ public class FallingState : IMovementState
     private Rigidbody2D _rb;
     private InputActionAsset _inputActions;
     private InputAction _moveInputAction;
+    private readonly int _layerMask = ~((1 << 2) + (1 << 6));
     
     public void Initialize(Playermovement player)
     {
@@ -22,8 +23,14 @@ public class FallingState : IMovementState
         
     }
 
-    public void OnUpdate()
+    public void OnFixedUpdate()
     {
+        if (Physics2D.Raycast(_player.transform.position, Vector2.down, 1.01f, _layerMask))
+        {
+            _player.grounded = true;
+            _player.jumpsRemaining = 1;
+            _player.ChangeState(Playermovement.States.IdleState);
+        }
         _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
         _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
     }
@@ -33,12 +40,12 @@ public class FallingState : IMovementState
         
     }
 
-    public void Jump(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
         if (_player.jumpsRemaining <= 0) return;
         _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         _player.jumpsRemaining -= 1; 
-        _player._grounded = false;
+        _player.grounded = false;
         _player.ChangeState(Playermovement.States.JumpingState);
     }
 }

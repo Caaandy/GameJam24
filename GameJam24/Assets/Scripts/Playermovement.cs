@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class Playermovement : MonoBehaviour
 {
@@ -24,13 +25,8 @@ public class Playermovement : MonoBehaviour
     
     public IMovementState CurrentState = States.IdleState;
     public IMovementState PreviousState = States.IdleState;
-        
     
-    private readonly int _layerMask = ~((1 << 2) + (1 << 6));
-    public bool _grounded;
-    private float _groundedTimer = 0.05f;
-    private float _groundedTimerMax = 0.05f;
-    
+    public bool grounded;
     
     void Awake()
     {
@@ -65,19 +61,16 @@ public class Playermovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_groundedTimer > _groundedTimerMax && Physics2D.Raycast(transform.position, Vector2.down, 1.01f, _layerMask))
-        {
-            _grounded = true;
-            jumpsRemaining = 1;
-            _groundedTimer = 0;
-        }
-        CurrentState.OnUpdate();
         _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
         _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
-        
-        _groundedTimer += Time.deltaTime;
     }
-    
+
+    private void FixedUpdate()
+    {
+        Debug.Log(CurrentState);
+        CurrentState.OnFixedUpdate();
+    }
+
     void Jump(InputAction.CallbackContext context)
     {
         CurrentState.Jump(context);

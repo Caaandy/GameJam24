@@ -22,8 +22,13 @@ public class JumpingState : IMovementState
 
     }
 
-    public void OnUpdate()
+    public void OnFixedUpdate()
     {
+        if (_rb.linearVelocityY <= 0)
+        {
+            _player.ChangeState(Playermovement.States.FallingState);
+            return;
+        }
         _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
         _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
     }
@@ -33,12 +38,12 @@ public class JumpingState : IMovementState
 
     }
 
-    public void Jump(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
         if (_player.jumpsRemaining <= 0) return;
         _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         _player.jumpsRemaining -= 1;
-        _player._grounded = false;
+        _player.grounded = false;
         _player.ChangeState(Playermovement.States.JumpingState);
     }
 }

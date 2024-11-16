@@ -22,9 +22,9 @@ public class IdleState : IMovementState
         
     }
 
-    public void OnUpdate()
+    public void OnFixedUpdate()
     {
-        if (_moveInputAction.WasPerformedThisFrame())
+        if (_moveInputAction.IsPressed())
         {
             _player.ChangeState(Playermovement.States.WalkingState);
         }
@@ -35,12 +35,12 @@ public class IdleState : IMovementState
         
     }
 
-    public void Jump(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context)
     {
         if (_player.jumpsRemaining <= 0) return;
         _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         _player.jumpsRemaining -= 1; 
-        _player._grounded = false;
+        _player.grounded = false;
         _player.ChangeState(Playermovement.States.JumpingState);
     }
 }
