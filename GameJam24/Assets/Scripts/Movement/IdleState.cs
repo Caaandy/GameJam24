@@ -38,6 +38,7 @@ public class IdleState : IMovementState
     public void Jump(InputAction.CallbackContext context)
     {
         if (_player.jumpsRemaining <= 0) return;
+        _rb.linearVelocityY = 0;
         _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         _player.jumpsRemaining -= 1; 
         _player.grounded = false;

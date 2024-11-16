@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class Playermovement : MonoBehaviour
 {
     public float jumpForce = 5;
+    public int maxJumpsReset = 2;
     public int jumpsRemaining = 1;
     
     private Rigidbody2D _rb;
