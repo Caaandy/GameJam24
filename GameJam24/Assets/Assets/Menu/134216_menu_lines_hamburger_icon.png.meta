@@ -184,7 +184,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      134216_menu_lines_hamburger_icon_0: -8211344139958736047
+      134216_menu_lines_hamburger_icon_1: -8406447423826581282
+      134216_menu_lines_hamburger_icon_2: 9214280686966936092
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
