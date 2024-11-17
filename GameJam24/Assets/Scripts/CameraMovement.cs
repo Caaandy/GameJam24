@@ -69,13 +69,13 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(rawPosition.x, rawPosition.y, player.transform.position.z);
     }
 
-    public void ResetCamera(Vector3 playerPos)
+    public void ResetCamera(Vector3 lastPlayerPos)
     {
         callStartFirstTime = false;
         GameObject.Destroy(wallInstance);
-        Vector3 cameraDistance = playerFurtherstPosition - transform.position;
-        playerFurtherstPosition = playerPos;
-        transform.position = playerPos - cameraDistance;
+        Vector3 cameraDistance = lastPlayerPos - transform.position;
+        playerFurtherstPosition = player.transform.position;
+        transform.position = player.transform.position - cameraDistance;
         Start(); 
     }
 }
