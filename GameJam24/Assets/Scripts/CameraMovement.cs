@@ -13,8 +13,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 camVelocity = Vector2.zero;
     private Camera mainCamera;
 
-    //is this the first time we call start?
-    private bool detlef = true;
+    private bool callStartFirstTime = true;
     #endregion
 
 
@@ -65,10 +64,13 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(playerFurtherstPosition.x, playerFurtherstPosition.y + offset, -10.0f);
     }
 
-    public void Reset()
+    public void ResetCamera(Vector3 lastPlayerPos)
     {
-        detlef = false;
+        callStartFirstTime = false;
         wallPlacement.Reset();
+        Vector3 cameraDistance = lastPlayerPos - transform.position;
+        playerFurtherstPosition = player.transform.position;
+        transform.position = player.transform.position - cameraDistance;
         Start(); 
     }
 }
