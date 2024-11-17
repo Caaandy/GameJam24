@@ -11,6 +11,8 @@ public class CameraMovement : MonoBehaviour
     public float camHeightOffset = 0.0f;
     private Vector3 playerFurtherstPosition;
     private Vector3 camVelocity = Vector2.zero;
+
+    private bool callStartFirstTime = true;
     #endregion
 
 
@@ -19,13 +21,13 @@ public class CameraMovement : MonoBehaviour
     {
         if (wall != null)
         {
-            var wallSize = new Vector3(wallWidth, Screen.height, 0);
-            wall.GetComponent<BoxCollider2D>().size = wallSize;
+            var wallSize = new Vector3(wallWidth, Screen.height, 0); 
             wallInstance = Instantiate(wall);
+            wallInstance.GetComponent<BoxCollider2D>().size = wallSize;
             wallInstance.transform.position = CalculateWallPosition();
             wallInstance.transform.localScale = new Vector3(wallWidth, Screen.height, 1.0f);
         }
-        if (player != null)
+        if (player != null && callStartFirstTime)
         {
             playerFurtherstPosition = player.transform.position;
             transform.position = CalculateTargetPosition(camHeightOffset);
@@ -65,5 +67,15 @@ public class CameraMovement : MonoBehaviour
         var wallScreenPosition = new Vector3(- wallWidth / 2.0f, Screen.height / 2.0f, player.transform.position.z);
         var rawPosition = Camera.main.ScreenToWorldPoint(wallScreenPosition);
         return new Vector3(rawPosition.x, rawPosition.y, player.transform.position.z);
+    }
+
+    public void ResetCamera(Vector3 lastPlayerPos)
+    {
+        callStartFirstTime = false;
+        GameObject.Destroy(wallInstance);
+        Vector3 cameraDistance = lastPlayerPos - transform.position;
+        playerFurtherstPosition = player.transform.position;
+        transform.position = player.transform.position - cameraDistance;
+        Start(); 
     }
 }

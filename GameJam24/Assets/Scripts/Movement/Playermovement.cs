@@ -6,7 +6,10 @@ using UnityEngine.Serialization;
 public class Playermovement : MonoBehaviour
 {
     public float jumpForce = 5;
+    public int maxJumpsReset = 2;
     public int jumpsRemaining = 1;
+
+    public int speed = 2;
     
     private Rigidbody2D _rb;
     
@@ -61,13 +64,12 @@ public class Playermovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _rb.AddForce(new Vector2(_moveInputAction.ReadValue<float>(),0), ForceMode2D.Impulse);
-        _rb.linearVelocityX = Math.Clamp(_rb.linearVelocityX, -2, 2);
+      
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
         CurrentState.OnFixedUpdate();
     }
 

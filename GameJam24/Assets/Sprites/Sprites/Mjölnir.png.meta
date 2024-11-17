@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 463af33165345e84583ac983817c7e55
+guid: ff5a031c8832d3143a10827610e9b265
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8211344139958736047
-    second: 134216_menu_lines_hamburger_icon_0
-  - first:
-      213: -8406447423826581282
-    second: 134216_menu_lines_hamburger_icon_1
-  - first:
-      213: 9214280686966936092
-    second: 134216_menu_lines_hamburger_icon_2
+      213: 7071909175929691198
+    second: "Mj\xF6lnir_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 134216_menu_lines_hamburger_icon_0
+      name: "Mj\xF6lnir_0"
       rect:
         serializedVersion: 2
-        x: 7
-        y: 87
-        width: 114
-        height: 18
+        x: 0
+        y: 0
+        width: 186
+        height: 271
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15b2641a2027b0e80800000000000000
-      internalID: -8211344139958736047
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 134216_menu_lines_hamburger_icon_1
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 55
-        width: 114
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ed8a1d77b9c465b80800000000000000
-      internalID: -8406447423826581282
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 134216_menu_lines_hamburger_icon_2
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 23
-        width: 114
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1218672773bfdf70800000000000000
-      internalID: 9214280686966936092
+      spriteID: e3c5d1b4de7742260800000000000000
+      internalID: 7071909175929691198
       vertices: []
       indices: 
       edges: []
@@ -197,10 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      134216_menu_lines_hamburger_icon_0: -8211344139958736047
-      134216_menu_lines_hamburger_icon_1: -8406447423826581282
-      134216_menu_lines_hamburger_icon_2: 9214280686966936092
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
