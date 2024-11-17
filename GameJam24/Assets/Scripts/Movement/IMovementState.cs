@@ -8,4 +8,5 @@ public interface IMovementState
     void OnFixedUpdate();
     void OnExit();
     void Jump(InputAction.CallbackContext context);
+    void Dash(InputAction.CallbackContext context);
 }

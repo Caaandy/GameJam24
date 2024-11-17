@@ -47,4 +47,12 @@ public class WalkingState : IMovementState
         _player.grounded = false;
         _player.ChangeState(Playermovement.States.JumpingState);
     }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (_player.dashUsed) return;
+        _rb.AddForce(Vector2.right * _moveInputAction.ReadValue<float>() * _player.dashForce, ForceMode2D.Impulse);
+        _player.dashUsed = true;
+        _player.ChangeState(Playermovement.States.DashingState);
+    }
 }

@@ -9,6 +9,12 @@ public class Playermovement : MonoBehaviour
     public int maxJumpsReset = 2;
     public int jumpsRemaining = 1;
 
+    
+    public float dashForce = 5;
+    public bool dashUsed = false;
+    
+    public float dashTimeLimit = 2.0f;
+
     public int speed = 2;
     
     private Rigidbody2D _rb;
@@ -17,6 +23,7 @@ public class Playermovement : MonoBehaviour
     
     private InputAction _moveInputAction;
     private InputAction _jumpInputAction;
+    private InputAction _dashInputAction;
     
     public sealed class States
     {
@@ -24,6 +31,8 @@ public class Playermovement : MonoBehaviour
         public static readonly IMovementState WalkingState = new WalkingState();
         public static readonly IMovementState JumpingState = new JumpingState();
         public static readonly IMovementState FallingState = new FallingState();
+        public static readonly IMovementState DashingState = new DashingState();
+
     };
     
     public IMovementState CurrentState = States.IdleState;
@@ -52,13 +61,16 @@ public class Playermovement : MonoBehaviour
         
         _moveInputAction = inputActions.FindAction("Move");
         _jumpInputAction = inputActions.FindAction("Jump");
+        _dashInputAction = inputActions.FindAction("Sprint");
         
         _jumpInputAction.performed += Jump;
+        _dashInputAction.performed += Dash;
         
         States.IdleState.Initialize(this);
         States.WalkingState.Initialize(this);
         States.JumpingState.Initialize(this);
         States.FallingState.Initialize(this);
+        States.DashingState.Initialize(this);
     }
 
     // Update is called once per frame
@@ -76,6 +88,11 @@ public class Playermovement : MonoBehaviour
     void Jump(InputAction.CallbackContext context)
     {
         CurrentState.Jump(context);
+    }
+
+    void Dash(InputAction.CallbackContext context)
+    {
+        CurrentState.Dash(context);
     }
     
     public void ChangeState(IMovementState newState)

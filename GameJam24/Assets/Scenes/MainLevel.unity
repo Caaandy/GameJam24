@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &46123023
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1223,7 +1223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1388887681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1390,9 @@ MonoBehaviour:
   jumpForce: 5.5
   maxJumpsReset: 2
   jumpsRemaining: 2
+  dashForce: 5
+  dashUsed: 0
+  dashTimeLimit: 1.5
   speed: 5
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   grounded: 0
@@ -1681,7 +1684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1582897827
 BoxCollider2D:
   m_ObjectHideFlags: 0
