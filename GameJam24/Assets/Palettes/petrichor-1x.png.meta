@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      petrichor-1x_0: -3111388399841662654
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
