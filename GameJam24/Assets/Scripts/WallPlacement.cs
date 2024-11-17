@@ -43,14 +43,14 @@ public class WallPlacement : MonoBehaviour
 
     void Update() {
         // For some reason it has a slight parallax effect, but we take it
-        wallInstance.transform.position = new Vector3(wallInstance.transform.position.x, - mainCamera.transform.position.y, wallInstance.transform.position.z);
+        wallInstance.transform.position = new Vector3(wallInstance.transform.position.x, CalculateWallPosition().y - mainCamera.transform.position.y, wallInstance.transform.position.z);
     }
 
     public Vector3 CalculateWallPosition()
     {
         var wallScreenPosition = new Vector3(0, Screen.height / 2.0f, 0);
         var rawPosition = mainCamera.ScreenToWorldPoint(wallScreenPosition);
-        return new Vector3(rawPosition.x, 0, 0);
+        return new Vector3(rawPosition.x, rawPosition.y, 0);
     }
 
     public void Reset()

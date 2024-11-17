@@ -24,23 +24,23 @@ public class CameraMovement : MonoBehaviour
         {
             mainCamera = Camera.main;
         }
-        if(!detlef)
+        if(!callStartFirstTime)
         {
-            Vector3 cameraDistance = playerFurtherstPosition - transform.position;
-            transform.position = player.transform.position - cameraDistance;
+            Vector3 cameraDistance = playerFurtherstPosition - mainCamera.transform.position;
+            mainCamera.transform.position = player.transform.position - cameraDistance;
             playerFurtherstPosition = player.transform.position;
         }
-        if (player != null && detlef)
+        if (player != null && callStartFirstTime)
         {
             playerFurtherstPosition = player.transform.position;
-            transform.position = CalculateTargetPosition(camHeightOffset);
+            mainCamera.transform.position = CalculateTargetPosition(camHeightOffset);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, CalculateTargetPosition(camHeightOffset), ref camVelocity, smoothing); // Smoothly move the camera to the player's position
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, CalculateTargetPosition(camHeightOffset), ref camVelocity, smoothing); // Smoothly move the camera to the player's position
     }
 
     void FixedUpdate()
@@ -68,9 +68,9 @@ public class CameraMovement : MonoBehaviour
     {
         callStartFirstTime = false;
         wallPlacement.Reset();
-        Vector3 cameraDistance = lastPlayerPos - transform.position;
+        Vector3 cameraDistance = lastPlayerPos - mainCamera.transform.position;
         playerFurtherstPosition = player.transform.position;
-        transform.position = player.transform.position - cameraDistance;
+        mainCamera.transform.position = player.transform.position - cameraDistance;
         Start(); 
     }
 }
