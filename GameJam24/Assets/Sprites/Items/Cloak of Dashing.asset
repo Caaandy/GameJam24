@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1746b372184e39145ba644ed9fdcfd70, type: 3}
   m_Name: Cloak of Dashing
   m_EditorClassIdentifier: 
-  name: 
+  name: Cloak of Dashing
   id: 2
   sprite: {fileID: 21300000, guid: c7b8313a0b5879e48bf67e16581502da, type: 3}

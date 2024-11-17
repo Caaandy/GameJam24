@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1746b372184e39145ba644ed9fdcfd70, type: 3}
   m_Name: Boots of Swiftness
   m_EditorClassIdentifier: 
-  name: 
+  name: Boots of Lightness
   id: 1
   sprite: {fileID: 21300000, guid: ecf440bf285a5ed48ad4e0ecfd0be17a, type: 3}

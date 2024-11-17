@@ -11,6 +11,7 @@ public class Playermovement : MonoBehaviour
 
     public int speed = 2;
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
     
     private Rigidbody2D _rb;
     
@@ -51,6 +52,7 @@ public class Playermovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         
         _moveInputAction = inputActions.FindAction("Move");
         _jumpInputAction = inputActions.FindAction("Jump");
@@ -71,7 +73,6 @@ public class Playermovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log(CurrentState);
         CurrentState.OnFixedUpdate();
     }
 

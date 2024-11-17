@@ -19,12 +19,15 @@ public class JumpingState : IMovementState
 
     public void OnEnter()
     {
-
+        _player.animator.SetTrigger("Jump");
     }
 
     public void OnUpdate()
     {
-        _player.spriteRenderer.flipX = _moveInputAction.ReadValue<float>() < 0;
+        float moveDirection = _moveInputAction.ReadValue<float>();
+        if (moveDirection != 0) {
+            _player.spriteRenderer.flipX = moveDirection < 0;
+        }
     }
 
     public void OnFixedUpdate()
@@ -39,7 +42,7 @@ public class JumpingState : IMovementState
 
     public void OnExit()
     {
-
+        _player.animator.ResetTrigger("Jump");
     }
 
     public void Jump(InputAction.CallbackContext context)

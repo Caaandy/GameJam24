@@ -19,7 +19,7 @@ public class IdleState : IMovementState
 
     public void OnEnter()
     {
-        
+        _player.animator.SetTrigger("Idle");
     }
 
     public void OnUpdate()
@@ -37,7 +37,7 @@ public class IdleState : IMovementState
 
     public void OnExit()
     {
-        
+        _player.animator.ResetTrigger("Idle");
     }
 
     public void Jump(InputAction.CallbackContext context)
