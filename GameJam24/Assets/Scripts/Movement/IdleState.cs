@@ -22,6 +22,11 @@ public class IdleState : IMovementState
         
     }
 
+    public void OnUpdate()
+    {
+        
+    }
+
     public void OnFixedUpdate()
     {
         if (_moveInputAction.IsPressed())

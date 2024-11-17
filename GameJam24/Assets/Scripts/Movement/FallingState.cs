@@ -23,6 +23,11 @@ public class FallingState : IMovementState
         
     }
 
+    public void OnUpdate()
+    {
+        _player.spriteRenderer.flipX = _moveInputAction.ReadValue<float>() < 0;
+    }
+
     public void OnFixedUpdate()
     {
         if (Physics2D.Raycast(_player.transform.position, Vector2.down, 1.01f, _layerMask))

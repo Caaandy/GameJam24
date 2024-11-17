@@ -22,6 +22,11 @@ public class JumpingState : IMovementState
 
     }
 
+    public void OnUpdate()
+    {
+        _player.spriteRenderer.flipX = _moveInputAction.ReadValue<float>() < 0;
+    }
+
     public void OnFixedUpdate()
     {
         if (_rb.linearVelocityY <= 0)

@@ -10,6 +10,7 @@ public class Playermovement : MonoBehaviour
     public int jumpsRemaining = 1;
 
     public int speed = 2;
+    public SpriteRenderer spriteRenderer;
     
     private Rigidbody2D _rb;
     
@@ -49,6 +50,7 @@ public class Playermovement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         
         _moveInputAction = inputActions.FindAction("Move");
         _jumpInputAction = inputActions.FindAction("Jump");
@@ -64,7 +66,7 @@ public class Playermovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+      CurrentState.OnUpdate();
     }
 
     private void FixedUpdate()

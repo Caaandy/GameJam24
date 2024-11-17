@@ -22,6 +22,12 @@ public class WalkingState : IMovementState
         
     }
 
+    public void OnUpdate()
+    {
+        Debug.Log(_moveInputAction.ReadValue<float>());
+        _player.spriteRenderer.flipX = _moveInputAction.ReadValue<float>() < 0;
+    }
+
     public void OnFixedUpdate()
     {
         if (!_moveInputAction.IsPressed())
