@@ -1,16 +1,17 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
     #region References
     public GameObject player;
-    public GameObject wall;
+    public WallPlacement wallPlacement;
     public float smoothing = 1.0f;
-    private GameObject wallInstance;
-    public float wallWidth = 1.0f;
     public float camHeightOffset = 0.0f;
     private Vector3 playerFurtherstPosition;
     private Vector3 camVelocity = Vector2.zero;
+    private Camera mainCamera;
 
     private bool callStartFirstTime = true;
     #endregion
@@ -19,26 +20,27 @@ public class CameraMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (wall != null)
+        if (!mainCamera)
         {
-            var wallSize = new Vector3(wallWidth, Screen.height, 0); 
-            wallInstance = Instantiate(wall);
-            wallInstance.GetComponent<BoxCollider2D>().size = wallSize;
-            wallInstance.transform.position = CalculateWallPosition();
-            wallInstance.transform.localScale = new Vector3(wallWidth, Screen.height, 1.0f);
+            mainCamera = Camera.main;
+        }
+        if(!callStartFirstTime)
+        {
+            Vector3 cameraDistance = playerFurtherstPosition - mainCamera.transform.position;
+            mainCamera.transform.position = player.transform.position - cameraDistance;
+            playerFurtherstPosition = player.transform.position;
         }
         if (player != null && callStartFirstTime)
         {
             playerFurtherstPosition = player.transform.position;
-            transform.position = CalculateTargetPosition(camHeightOffset);
+            mainCamera.transform.position = CalculateTargetPosition(camHeightOffset);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, CalculateTargetPosition(camHeightOffset), ref camVelocity, smoothing); // Smoothly move the camera to the player's position
-        wallInstance.transform.position = CalculateWallPosition();
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, CalculateTargetPosition(camHeightOffset), ref camVelocity, smoothing); // Smoothly move the camera to the player's position
     }
 
     void FixedUpdate()
@@ -62,20 +64,13 @@ public class CameraMovement : MonoBehaviour
         return new Vector3(playerFurtherstPosition.x, playerFurtherstPosition.y + offset, -10.0f);
     }
 
-    private Vector3 CalculateWallPosition()
-    {
-        var wallScreenPosition = new Vector3(- wallWidth / 2.0f, Screen.height / 2.0f, player.transform.position.z);
-        var rawPosition = Camera.main.ScreenToWorldPoint(wallScreenPosition);
-        return new Vector3(rawPosition.x, rawPosition.y, player.transform.position.z);
-    }
-
     public void ResetCamera(Vector3 lastPlayerPos)
     {
         callStartFirstTime = false;
-        GameObject.Destroy(wallInstance);
-        Vector3 cameraDistance = lastPlayerPos - transform.position;
+        wallPlacement.Reset();
+        Vector3 cameraDistance = lastPlayerPos - mainCamera.transform.position;
         playerFurtherstPosition = player.transform.position;
-        transform.position = player.transform.position - cameraDistance;
+        mainCamera.transform.position = player.transform.position - cameraDistance;
         Start(); 
     }
 }

@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 1832618720}
   - component: {fileID: 1832618723}
   - component: {fileID: 1832618724}
+  - component: {fileID: 1832618725}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -741,10 +742,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1713429354}
-  wall: {fileID: 6669809958684711897, guid: 5ef5355d0ca7e6446b5a55a64364956a, type: 3}
+  wallPlacement: {fileID: 1832618725}
   smoothing: 0.5
-  wallWidth: 1
   camHeightOffset: 0.75
+--- !u!114 &1832618725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832618719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fd6b08352b13f409fda76e2a93d040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: 6669809958684711897, guid: 5ef5355d0ca7e6446b5a55a64364956a, type: 3}
+  wallTexture: {fileID: 2800000, guid: 407c7b1d2f8854741994a58e8225f4c1, type: 3}
+  wallWidth: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
