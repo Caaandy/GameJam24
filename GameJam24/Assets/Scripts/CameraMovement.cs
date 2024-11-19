@@ -37,27 +37,23 @@ public class CameraMovement : MonoBehaviour
             playerFurtherstPosition = player.transform.position;
             mainCamera.transform.position = CalculateTargetPosition(positionOffset);
         }
-        var mid = new Vector3(Screen.width / 2, Screen.height / 2, -camDistanceZ);
-        var bot = new Vector3(Screen.width / 2, 0, -camDistanceZ);
+        var mid = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        var bot = new Vector3(Screen.width / 2, 0, 0);
         var worldOffset = new Vector3(positionOffset.x, positionOffset.y, 0.0f);
         var worldMid = mainCamera.ScreenToWorldPoint(mid) - worldOffset;
-        var worldBottom = mainCamera.ScreenToWorldPoint(bot) - worldOffset;
+        var worldBottom = mainCamera.ScreenToWorldPoint(bot);
         distanceWorldMiddleToBottom = (worldMid - worldBottom).magnitude;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateSmoothing();
         mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, CalculateTargetPosition(positionOffset), ref camVelocity, smoothing * smoothingFactor); // Smoothly move the camera to the player's position
     }
 
     void FixedUpdate()
     {
-        var playerFurtherstPosition2D = new Vector2(playerFurtherstPosition.x, playerFurtherstPosition.y);
-        var cameraPosition2D = new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.y);
-        var distance = (playerFurtherstPosition2D - cameraPosition2D).magnitude;
-        var relativeDistance = (distanceWorldMiddleToBottom - distance) <= 0 ? 0.01f : (distanceWorldMiddleToBottom - distance);
-        smoothingFactor = relativeDistance / distanceWorldMiddleToBottom;
         if (player != null)
         {
             // Make x only increase
@@ -70,6 +66,14 @@ public class CameraMovement : MonoBehaviour
                 playerFurtherstPosition = new Vector3(playerFurtherstPosition.x, player.transform.position.y, player.transform.position.z);
             }
         }
+    }
+
+    private void UpdateSmoothing() {
+        var playerFurtherstPosition2D = new Vector2(playerFurtherstPosition.x, playerFurtherstPosition.y);
+        var cameraPosition2D = new Vector2(mainCamera.transform.position.x - positionOffset.x, mainCamera.transform.position.y - positionOffset.y);
+        var distance = (playerFurtherstPosition2D - cameraPosition2D).magnitude;
+        var relativeDistance = (distanceWorldMiddleToBottom - distance) <= 0 ? 0.01f : (distanceWorldMiddleToBottom - distance);
+        smoothingFactor = relativeDistance / distanceWorldMiddleToBottom;
     }
 
     private Vector3 CalculateTargetPosition()
