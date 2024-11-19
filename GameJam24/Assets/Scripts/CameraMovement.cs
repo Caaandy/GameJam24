@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    // TODO: Rewrite ALL of this code. It's a mess. (cam position is not handled as 2D)
     #region References
     public GameObject player;
     public WallPlacement wallPlacement;
@@ -52,8 +53,11 @@ public class CameraMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        var distance = (playerFurtherstPosition - mainCamera.transform.position).magnitude;
-        smoothingFactor = distanceWorldMiddleToBottom / distance;
+        var playerFurtherstPosition2D = new Vector2(playerFurtherstPosition.x, playerFurtherstPosition.y);
+        var cameraPosition2D = new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.y);
+        var distance = (playerFurtherstPosition2D - cameraPosition2D).magnitude;
+        var relativeDistance = (distanceWorldMiddleToBottom - distance) <= 0 ? 0.01f : (distanceWorldMiddleToBottom - distance);
+        smoothingFactor = relativeDistance / distanceWorldMiddleToBottom;
         if (player != null)
         {
             // Make x only increase
